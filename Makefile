@@ -1,9 +1,15 @@
-make install: # установка зависимостей
+install:
 	npm ci
+	make -C frontend install
 
-make build: # сборка приложения
+build:
+	make -C frontend build
+
+start: build
+	npx start-server -s ./frontend/dist
+
+develop:
+	make -C frontend start & npx start-server -s ./frontend/dist
+
+clean:
 	rm -rf frontend/dist
-	npm run build
-
-make start: # запуск приложения
-	npx start-server -s ./frontend.dist
