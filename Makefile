@@ -1,15 +1,21 @@
+#Установка зависомотей в корневой деррикотрии и у фронтенда
 install:
 	npm ci
-	make -C frontend install
 
+#Билд фронтенда
 build:
-	make -C frontend build
+	rm -rf frontend/dist
+	npm run build
 
-start: build
-	npx start-server -s ./frontend/dist
+#Старт сервера
+start-backend:
+	npm run start
+start:
+	make start-backend
 
 develop:
-	make -C frontend start & npx start-server -s ./frontend/dist
+	npm run develop
 
-clean:
-	rm -rf frontend/dist
+preview:
+	npm run preview
+
