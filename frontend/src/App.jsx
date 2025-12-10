@@ -1,35 +1,43 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { ToastContainer } from 'react-toastify';
+import {
+  Route, Routes, BrowserRouter, Outlet,
+} from 'react-router';
+import { Provider } from 'react-redux';
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
+import RequireAuth from './components/RequireAuth.jsx';
+import Layout from './components/Layout.jsx';
+import NotFoundPage from './components/NotFoundPage.jsx';
+import LoginPage from './components/LoginPage.jsx';
+import MainPage from './components/MainPage.jsx';
+import SignupPage from './components/SignupPage.jsx';
+import './locale/i18next.js';
+import rollbarConfig from '../rollbar.config.js';
+import routes from './routes.js';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
-
-export default App
+const App = ({ store }) => (
+  <RollbarProvider config={rollbarConfig}>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <ToastContainer hideProgressBar />
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Layout><Outlet /></Layout>}>
+              <Route path={routes.loginPagePath()} element={<LoginPage />} />
+              <Route
+                path={routes.mainPagePath()}
+                element={(
+                  <RequireAuth>
+                    <MainPage />
+                  </RequireAuth>
+                )}
+              />
+              <Route path={routes.signUpPagePath()} element={<SignupPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    </ErrorBoundary>
+  </RollbarProvider>
+);
+export default App;
