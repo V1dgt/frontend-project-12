@@ -1,31 +1,27 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/V1dgt/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/V1dgt/frontend-project-12/actions)",
-  "homepage": "https://github.com/V1dgt/frontend-project-12#readme",
+  "description": "chat-application",
+  "homepage": "https://github.com/Konstantin-Gromakovskiy/frontend-project-12#readme",
   "bugs": {
-    "url": "https://github.com/V1dgt/frontend-project-12/issues"
+    "url": "https://github.com/Konstantin-Gromakovskiy/frontend-project-12/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/V1dgt/frontend-project-12.git"
+    "url": "git+https://github.com/Konstantin-Gromakovskiy/frontend-project-12.git"
   },
   "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "author": "Konstantin Gromakovskiy",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build --prefix frontend",
+    "start": "start-server -s ./frontend/dist",
+    "postinstall": "cd frontend && npm ci",
+    "develop": "cd frontend && npm run dev",
+    "preview": "npm run preview --prefix frontend"
   },
   "dependencies": {
     "@hexlet/chat-server": "^2.0.4"
-  },
-  "devDependencies": {
-    "@eslint/create-config": "^1.11.0",
-    "@eslint/js": "^9.39.1",
-    "@stylistic/eslint-plugin": "^5.6.1",
-    "eslint": "^9.39.1",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^16.5.0"
   }
 }
