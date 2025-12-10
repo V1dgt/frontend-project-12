@@ -1,10 +1,10 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
+import { createRoot } from 'react-dom/client';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import init from './init.jsx';
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+const runApp = async () => {
+  const vdom = await init();
+  createRoot(document.getElementById('root')).render(vdom);
+};
+
+runApp();
