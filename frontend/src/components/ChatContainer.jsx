@@ -5,12 +5,12 @@ import MessageForm from './MessageForm.jsx'
 import { useGetChannelsQuery } from '../redux/store/channelsApi.js'
 
 const ChatContainer = () => {
-  const { currentChannelId } = useSelector(state => state.ui)
+  const { currentChannelId } = useSelector((state) => state.ui)
   const { data: messages = [] } = useGetMessagesQuery()
   const { t } = useTranslation()
   const channels = useGetChannelsQuery().data || []
-  const currentChannelName = channels.find(channel => channel.id === currentChannelId)?.name
-  const currentMessages = messages.filter(message => message.channelId === currentChannelId)
+  const currentChannelName = channels.find((channel) => channel.id === currentChannelId)?.name
+  const currentMessages = messages.filter((message) => message.channelId === currentChannelId)
 
   return (
     <div className="col p-0 h-100">
@@ -22,7 +22,7 @@ const ChatContainer = () => {
           <span className="text-muted">{t('chatContainer.messages.count', { count: currentMessages.length })}</span>
         </div>
         <div className="overflow-auto px-5">
-          {currentMessages.map(message => (
+          {currentMessages.map((message) => (
             <div key={message.id} className="text-break mb-2">
               <b>{message.username}</b>
               {`: ${message.body}`}

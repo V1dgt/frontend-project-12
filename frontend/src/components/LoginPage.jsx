@@ -25,7 +25,7 @@ const LoginPage = () => {
       username: '',
       password: '',
     },
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       setAuthFailed(false)
       try {
         const response = await axios.post(routes.loginUrl(), values)
@@ -33,8 +33,7 @@ const LoginPage = () => {
         const { username } = response.data
         logIn(username, responseToken)
         navigate(fromPage, { replace: true })
-      }
-      catch (error) {
+      } catch (error) {
         if (!error.isAxiosError) {
           toast(t('toast.unknownError'), { type: 'error' })
           return
@@ -68,7 +67,7 @@ const LoginPage = () => {
                     name="username"
                     placeholder={t('loginPage.username')}
                     value={formik.values.username}
-                    onChange={e => {
+                    onChange={(e) => {
                       setAuthFailed(false)
                       formik.handleChange(e)
                     }}
@@ -83,7 +82,7 @@ const LoginPage = () => {
                     name="password"
                     placeholder={t('loginPage.password')}
                     value={formik.values.password}
-                    onChange={e => {
+                    onChange={(e) => {
                       setAuthFailed(false)
                       formik.handleChange(e)
                     }}

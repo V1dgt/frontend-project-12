@@ -36,7 +36,7 @@ const SignupPage = () => {
     },
     validateOnBlur: false,
     validationSchema,
-    onSubmit: async values => {
+    onSubmit: async (values) => {
       try {
         const response = await axios.post(
           routes.createUserUrl(),
@@ -45,8 +45,7 @@ const SignupPage = () => {
         const { username, token } = response.data
         logIn(username, token)
         navigate(routes.mainPagePath(), { replace: true })
-      }
-      catch (error) {
+      } catch (error) {
         if (!error.isAxiosError) {
           toast(t('toast.unknownError'), { type: 'error' })
           return
