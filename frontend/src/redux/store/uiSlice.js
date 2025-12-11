@@ -1,11 +1,11 @@
- 
-import { createSlice } from '@reduxjs/toolkit';
+
+import { createSlice } from "@reduxjs/toolkit";
 
 const currentChannelIdSlice = createSlice({
-  name: 'ui',
+  name: "ui",
   initialState: {
-    currentChannelId: '1',
-    defaultChannelId: '1',
+    currentChannelId: "1",
+    defaultChannelId: "1",
     modal: {
       isOpen: false,
       type: null,

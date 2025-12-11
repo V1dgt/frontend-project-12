@@ -1,16 +1,16 @@
-import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useFormik } from "formik";
+import { useState } from "react";
 import {
   Card, Form, FloatingLabel, Button,
-} from 'react-bootstrap';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-import cn from 'classnames';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import axios from 'axios';
-import loginAvatar from '../assets/login-avatar.jpg';
-import useAuth from '../hook/useAuth.js';
-import routes from '../routes.js';
+} from "react-bootstrap";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import cn from "classnames";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import axios from "axios";
+import loginAvatar from "../assets/login-avatar.jpg";
+import useAuth from "../hook/useAuth.js";
+import routes from "../routes.js";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -22,8 +22,8 @@ const LoginPage = () => {
 
   const formik = useFormik({
     initialValues: {
-      username: '',
-      password: '',
+      username: "",
+      password: "",
     },
     onSubmit: async (values) => {
       setAuthFailed(false);
@@ -35,14 +35,14 @@ const LoginPage = () => {
         navigate(fromPage, { replace: true });
       } catch (error) {
         if (!error.isAxiosError) {
-          toast(t('toast.unknownError'), { type: 'error' });
+          toast(t("toast.unknownError"), { type: "error" });
           return;
         }
         if (error.status === 401) {
           setAuthFailed(true);
           return;
         }
-        toast(t('toast.networkError'), { type: 'error' });
+        toast(t("toast.networkError"), { type: "error" });
       }
     },
   });
@@ -57,15 +57,15 @@ const LoginPage = () => {
                 <img alt="Login avatar" src={loginAvatar} className="rounded-circle" />
               </div>
               <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-md-0">
-                <h1 className="text-center mb-4">{t('loginPage.title')}</h1>
-                <FloatingLabel controlId="username" className="mb-3" label={t('loginPage.username')}>
+                <h1 className="text-center mb-4">{t("loginPage.title")}</h1>
+                <FloatingLabel controlId="username" className="mb-3" label={t("loginPage.username")}>
                   <Form.Control
                     required
-                    className={`form-control ${cn({ 'is-invalid': authFailed })}`}
+                    className={`form-control ${cn({ "is-invalid": authFailed })}`}
                     autoComplete="username"
                     type="text"
                     name="username"
-                    placeholder={t('loginPage.username')}
+                    placeholder={t("loginPage.username")}
                     value={formik.values.username}
                     onChange={(e) => {
                       setAuthFailed(false);
@@ -73,21 +73,21 @@ const LoginPage = () => {
                     }}
                   />
                 </FloatingLabel>
-                <FloatingLabel controlId="password" className="mb-4" label={t('loginPage.password')}>
+                <FloatingLabel controlId="password" className="mb-4" label={t("loginPage.password")}>
                   <Form.Control
                     required
-                    className={`form-control ${cn({ 'is-invalid': authFailed })}`}
+                    className={`form-control ${cn({ "is-invalid": authFailed })}`}
                     autoComplete="current-password"
                     type="password"
                     name="password"
-                    placeholder={t('loginPage.password')}
+                    placeholder={t("loginPage.password")}
                     value={formik.values.password}
                     onChange={(e) => {
                       setAuthFailed(false);
                       formik.handleChange(e);
                     }}
                   />
-                  {authFailed && <div className="invalid-tooltip">{t('errors.authFailed')}</div>}
+                  {authFailed && <div className="invalid-tooltip">{t("errors.authFailed")}</div>}
                 </FloatingLabel>
                 <Button
                   type="submit"
@@ -95,13 +95,13 @@ const LoginPage = () => {
                   className="w-100 mb-3"
                   disabled={formik.isSubmitting}
                 >
-                  {t('buttons.login')}
+                  {t("buttons.login")}
                 </Button>
               </Form>
             </Card.Body>
             <Card.Footer className="text-center py-4">
-              <span>{`${t('loginPage.account')} `}</span>
-              <Link to="/signup">{t('loginPage.registration')}</Link>
+              <span>{`${t("loginPage.account")} `}</span>
+              <Link to="/signup">{t("loginPage.registration")}</Link>
             </Card.Footer>
           </Card>
         </div>

@@ -1,16 +1,16 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import { Button, Form, Modal } from 'react-bootstrap';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { toast } from 'react-toastify';
-import cn from 'classnames';
-import { useRef, useEffect } from 'react';
-import filter from 'leo-profanity';
-import { closeModal, setCurrentChannelId } from '../redux/store/uiSlice.js';
+import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
+import { Button, Form, Modal } from "react-bootstrap";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { toast } from "react-toastify";
+import cn from "classnames";
+import { useRef, useEffect } from "react";
+import filter from "leo-profanity";
+import { closeModal, setCurrentChannelId } from "../redux/store/uiSlice.js";
 import {
   useAddChannelMutation, useRemoveChannelMutation, useRenameChannelMutation, useGetChannelsQuery,
-} from '../redux/store/channelsApi.js';
+} from "../redux/store/channelsApi.js";
 
 const AddingModalWindow = () => {
   const { t } = useTranslation();
@@ -20,14 +20,14 @@ const AddingModalWindow = () => {
   const inputRef = useRef();
 
   const inputSchema = yup.object().shape({
-    inputValue: yup.string().trim().min(3, t('errors.min3max20')).max(20, t('errors.min3max20'))
-      .notOneOf(channels.map((channel) => channel.name), t('errors.notUnique'))
-      .required(t('errors.required')),
+    inputValue: yup.string().trim().min(3, t("errors.min3max20")).max(20, t("errors.min3max20"))
+      .notOneOf(channels.map((channel) => channel.name), t("errors.notUnique"))
+      .required(t("errors.required")),
   });
 
   const formik = useFormik({
     initialValues: {
-      inputValue: '',
+      inputValue: "",
     },
     validationSchema: inputSchema,
     validateOnChange: false,
@@ -36,11 +36,11 @@ const AddingModalWindow = () => {
       try {
         const { id } = await addChannel(filter.clean(values.inputValue)).unwrap();
         dispatch(setCurrentChannelId({ id }));
-        toast(t('toast.channelAdded'), { type: 'success' });
+        toast(t("toast.channelAdded"), { type: "success" });
         resetForm();
         dispatch(closeModal());
       } catch (_error) {
-        toast(t('toast.networkError'), { type: 'error' });
+        toast(t("toast.networkError"), { type: "error" });
       }
     },
   });
@@ -51,7 +51,7 @@ const AddingModalWindow = () => {
   return (
     <Modal centered show onHide={() => dispatch(closeModal())}>
       <Modal.Header closeButton>
-        <Modal.Title>{t('modal.addChannel.title')}</Modal.Title>
+        <Modal.Title>{t("modal.addChannel.title")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -61,20 +61,20 @@ const AddingModalWindow = () => {
               onChange={formik.handleChange}
               value={formik.values.inputValue}
               name="inputValue"
-              className={`mb-2 ${cn({ 'is-invalid': formik.errors.inputValue })}`}
+              className={`mb-2 ${cn({ "is-invalid": formik.errors.inputValue })}`}
               type="text"
               isInvalid={formik.touched.inputValue && formik.errors.inputValue}
               ref={inputRef}
               id="inputValue"
             />
-            <Form.Label htmlFor="inputValue" column="sm" className="visually-hidden">{t('modal.channelName')}</Form.Label>
+            <Form.Label htmlFor="inputValue" column="sm" className="visually-hidden">{t("modal.channelName")}</Form.Label>
             <Form.Control.Feedback type="invalid">{formik.errors.inputValue}</Form.Control.Feedback>
             <div className="d-flex justify-content-end">
               <Button onClick={() => dispatch(closeModal())} variant="secondary" className="me-2" type="button">
-                {t('buttons.cancel')}
+                {t("buttons.cancel")}
               </Button>
               <Button disabled={formik.isSubmitting} variant="primary" type="submit">
-                {t('buttons.submit')}
+                {t("buttons.submit")}
               </Button>
             </div>
           </Form.Group>
@@ -102,29 +102,29 @@ const RemovingModalWindow = () => {
         dispatch(setCurrentChannelId({ id: defaultChannelId }));
       }
       dispatch(closeModal());
-      toast(t('toast.channelRemoved'), { type: 'success' });
+      toast(t("toast.channelRemoved"), { type: "success" });
     } catch (_error) {
-      toast(t('toast.networkError'), { type: 'error' });
+      toast(t("toast.networkError"), { type: "error" });
     }
   };
 
   return (
     <Modal centered show={isOpen} onHide={() => dispatch(closeModal())}>
       <Modal.Header closeButton>
-        <Modal.Title>{t('modal.removeChannel.title')}</Modal.Title>
+        <Modal.Title>{t("modal.removeChannel.title")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className="lead">{t('modal.removeChannel.body')}</p>
+        <p className="lead">{t("modal.removeChannel.body")}</p>
         <div className="d-flex justify-content-end">
           <Button onClick={() => dispatch(closeModal())} variant="secondary" className="me-2" type="button">
-            {t('buttons.cancel')}
+            {t("buttons.cancel")}
           </Button>
           <Button
             onClick={deleteChannel}
             variant="danger"
             type="button"
           >
-            {t('buttons.submit')}
+            {t("buttons.submit")}
           </Button>
         </div>
       </Modal.Body>
@@ -141,9 +141,9 @@ const RenamingModalWindow = () => {
   const inputRef = useRef();
 
   const inputSchema = yup.object().shape({
-    inputValue: yup.string().trim().min(3, t('errors.min3max20')).max(20, t('errors.min3max20'))
-      .notOneOf(channels.map((channel) => channel.name), t('errors.notUnique'))
-      .required(t('errors.required')),
+    inputValue: yup.string().trim().min(3, t("errors.min3max20")).max(20, t("errors.min3max20"))
+      .notOneOf(channels.map((channel) => channel.name), t("errors.notUnique"))
+      .required(t("errors.required")),
   });
 
   const formik = useFormik({
@@ -159,11 +159,11 @@ const RenamingModalWindow = () => {
           id: channelId,
           name: filter.clean(values.inputValue.trim()),
         }).unwrap();
-        toast(t('toast.channelRenamed'), { type: 'success' });
+        toast(t("toast.channelRenamed"), { type: "success" });
         resetForm();
         dispatch(closeModal());
       } catch (_error) {
-        toast(t('toast.networkError'), { type: 'error' });
+        toast(t("toast.networkError"), { type: "error" });
       }
     },
   });
@@ -176,7 +176,7 @@ const RenamingModalWindow = () => {
   return (
     <Modal centered show onHide={() => dispatch(closeModal())}>
       <Modal.Header closeButton>
-        <Modal.Title>{t('modal.renameChannel.title')}</Modal.Title>
+        <Modal.Title>{t("modal.renameChannel.title")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
@@ -186,20 +186,20 @@ const RenamingModalWindow = () => {
               onChange={formik.handleChange}
               value={formik.values.inputValue}
               name="inputValue"
-              className={`mb-2 ${cn({ 'is-invalid': formik.errors.inputValue })}`}
+              className={`mb-2 ${cn({ "is-invalid": formik.errors.inputValue })}`}
               type="text"
               isInvalid={formik.touched.inputValue && formik.errors.inputValue}
               ref={inputRef}
               id="inputValue"
             />
-            <Form.Label htmlFor="inputValue" column="sm" className="visually-hidden">{t('modal.channelName')}</Form.Label>
+            <Form.Label htmlFor="inputValue" column="sm" className="visually-hidden">{t("modal.channelName")}</Form.Label>
             <Form.Control.Feedback type="invalid">{formik.errors.inputValue}</Form.Control.Feedback>
             <div className="d-flex justify-content-end">
               <Button onClick={() => dispatch(closeModal())} variant="secondary" className="me-2" type="button">
-                {t('buttons.cancel')}
+                {t("buttons.cancel")}
               </Button>
               <Button disabled={formik.isSubmitting} variant="primary" type="submit">
-                {t('buttons.submit')}
+                {t("buttons.submit")}
               </Button>
             </div>
           </Form.Group>

@@ -1,8 +1,8 @@
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import { useGetMessagesQuery } from '../redux/store/messagesApi.js';
-import MessageForm from './MessageForm.jsx';
-import { useGetChannelsQuery } from '../redux/store/channelsApi.js';
+import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { useGetMessagesQuery } from "../redux/store/messagesApi.js";
+import MessageForm from "./MessageForm.jsx";
+import { useGetChannelsQuery } from "../redux/store/channelsApi.js";
 
 const ChatContainer = () => {
   const { currentChannelId } = useSelector((state) => state.ui);
@@ -19,7 +19,7 @@ const ChatContainer = () => {
           <p className="m-0">
             <b>{`# ${currentChannelName}`}</b>
           </p>
-          <span className="text-muted">{t('chatContainer.messages.count', { count: currentMessages.length })}</span>
+          <span className="text-muted">{t("chatContainer.messages.count", { count: currentMessages.length })}</span>
         </div>
         <div className="overflow-auto px-5">
           {currentMessages.map((message) => (

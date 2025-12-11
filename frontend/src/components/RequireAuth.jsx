@@ -1,6 +1,6 @@
-import { useLocation, Navigate } from 'react-router';
-import { useSelector } from 'react-redux';
-import routes from '../routes.js';
+import { useLocation, Navigate } from "react-router";
+import { useSelector } from "react-redux";
+import routes from "../routes.js";
 
 const RequireAuth = ({ children }) => {
   const location = useLocation();

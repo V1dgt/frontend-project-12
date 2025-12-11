@@ -1,8 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { channelsApi } from './channelsApi.js';
-import { messagesApi } from './messagesApi.js';
-import ui from './uiSlice.js';
-import authSlice from './authSlice.js';
+import { configureStore } from "@reduxjs/toolkit";
+import { channelsApi } from "./channelsApi.js";
+import { messagesApi } from "./messagesApi.js";
+import ui from "./uiSlice.js";
+import authSlice from "./authSlice.js";
 
 const createStore = () => configureStore({
   reducer: {
