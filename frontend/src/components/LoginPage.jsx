@@ -33,7 +33,8 @@ const LoginPage = () => {
         const { username } = response.data
         logIn(username, responseToken)
         navigate(fromPage, { replace: true })
-      } catch (error) {
+      }
+      catch (error) {
         if (!error.isAxiosError) {
           toast(t('toast.unknownError'), { type: 'error' })
           return

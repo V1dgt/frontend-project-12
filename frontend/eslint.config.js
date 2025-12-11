@@ -32,6 +32,13 @@ export default defineConfig([
         },
       },
     },
+    rules: {
+      'no-unused-vars': ['error', {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_',
+      }],
+    },
   },
   pluginReact.configs.flat.recommended,
   {
@@ -46,7 +53,7 @@ export default defineConfig([
     },
     settings: {
       react: {
-        version: '18.2.0',
+        version: 'detect',
       },
     },
     rules: {
@@ -60,25 +67,18 @@ export default defineConfig([
       'import/prefer-default-export': 0,
       'no-underscore-dangle': [2, { allow: ['__filename', '__dirname'] }],
 
-      'no-unused-vars': ['error', {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-        caughtErrorsIgnorePattern: '^_',
-      }],
-
       '@stylistic/quotes': ['error', 'single'],
       '@stylistic/semi': ['error', 'never'],
       '@stylistic/indent': ['error', 2],
       '@stylistic/no-trailing-spaces': 'error',
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
       '@stylistic/quote-props': ['error', 'as-needed'],
-      '@stylistic/arrow-parens': ['error', 'always'],
+      '@stylistic/arrow-parens': ['error', 'as-needed', { requireForBlockBody: true }],
       '@stylistic/multiline-ternary': ['error', 'always-multiline'],
-      '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: true }],
+      '@stylistic/brace-style': ['error', 'stroustrup'],
       '@stylistic/eol-last': ['error', 'always'],
       '@stylistic/max-statements-per-line': ['error', { max: 1 }],
       '@stylistic/no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0, maxBOF: 0 }],
-      '@stylistic/jsx-closing-tag-location': 'error',
     },
   },
 ])

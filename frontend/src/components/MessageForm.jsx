@@ -16,7 +16,7 @@ const MessageForm = () => {
   const {
     currentChannelId,
     modal: { isOpen },
-  } = useSelector((state) => state.ui)
+  } = useSelector(state => state.ui)
 
   useEffect(() => {
     inputRef.current.focus()
@@ -29,7 +29,8 @@ const MessageForm = () => {
         const message = filter.clean(values.body.trim())
         await addMassage({ body: message, channelId: currentChannelId, username }).unwrap()
         resetForm()
-      } catch (error) {
+      }
+      catch (error) {
         switch (error.status) {
           case 401:
             logOut()

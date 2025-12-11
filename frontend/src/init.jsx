@@ -22,22 +22,22 @@ const init = async () => {
   }
 
   socket.on('newChannel', (payload) => {
-    store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draft) => [...draft, payload]))
+    store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, draft => [...draft, payload]))
   })
 
   socket.on('renameChannel', (payload) => {
-    store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draft) => draft.map((item) => ((item.id === payload.id)
+    store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, draft => draft.map(item => ((item.id === payload.id)
       ? { ...payload }
       : item))))
   })
 
   socket.on('removeChannel', (payload) => {
-    store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draft) => draft.filter((item) => item.id !== payload.id)))
-    store.dispatch(messagesApi.util.updateQueryData('getMessages', undefined, (draft) => draft.filter((item) => item.channelId !== payload.id)))
+    store.dispatch(channelsApi.util.updateQueryData('getChannels', undefined, draft => draft.filter(item => item.id !== payload.id)))
+    store.dispatch(messagesApi.util.updateQueryData('getMessages', undefined, draft => draft.filter(item => item.channelId !== payload.id)))
   })
 
   socket.on('newMessage', (payload) => {
-    store.dispatch(messagesApi.util.updateQueryData('getMessages', undefined, (draft) => [...draft, payload]))
+    store.dispatch(messagesApi.util.updateQueryData('getMessages', undefined, draft => [...draft, payload]))
   })
 
   return (<App store={store} />)

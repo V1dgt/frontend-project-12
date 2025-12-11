@@ -13,8 +13,8 @@ import useAuth from '../hook/useAuth.js'
 
 const ChannelsList = () => {
   const dispatch = useDispatch()
-  const { currentChannelId } = useSelector((state) => state.ui)
-  const truncateClass = (channel) => cn({ 'text-truncate': channel.removable })
+  const { currentChannelId } = useSelector(state => state.ui)
+  const truncateClass = channel => cn({ 'text-truncate': channel.removable })
   const { data: channels = [], error: channelsError } = useGetChannelsQuery()
   const navigate = useNavigate()
   const { signOut } = useAuth()

@@ -45,7 +45,8 @@ const SignupPage = () => {
         const { username, token } = response.data
         logIn(username, token)
         navigate(routes.mainPagePath(), { replace: true })
-      } catch (error) {
+      }
+      catch (error) {
         if (!error.isAxiosError) {
           toast(t('toast.unknownError'), { type: 'error' })
           return

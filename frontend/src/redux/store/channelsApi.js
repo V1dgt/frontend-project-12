@@ -16,14 +16,14 @@ export const channelsApi = createApi({
         query: () => ({ url: '' }),
       }),
       addChannel: build.mutation({
-        query: (name) => ({
+        query: name => ({
           url: '',
           method: 'POST',
           body: { name },
         }),
       }),
       removeChannel: build.mutation({
-        query: (id) => ({
+        query: id => ({
           url: `/${id}`,
           method: 'DELETE',
         }),
