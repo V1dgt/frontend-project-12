@@ -40,7 +40,7 @@ const AddingModalWindow = () => {
         resetForm()
         dispatch(closeModal())
       }
-      catch (_error) {
+      catch () {
         toast(t('toast.networkError'), { type: 'error' })
       }
     },
@@ -105,7 +105,7 @@ const RemovingModalWindow = () => {
       dispatch(closeModal())
       toast(t('toast.channelRemoved'), { type: 'success' })
     }
-    catch (_error) {
+    catch () {
       toast(t('toast.networkError'), { type: 'error' })
     }
   }
@@ -165,7 +165,7 @@ const RenamingModalWindow = () => {
         resetForm()
         dispatch(closeModal())
       }
-      catch (_error) {
+      catch () {
         toast(t('toast.networkError'), { type: 'error' })
       }
     },
