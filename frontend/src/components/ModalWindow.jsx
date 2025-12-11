@@ -39,7 +39,7 @@ const AddingModalWindow = () => {
         toast(t('toast.channelAdded'), { type: 'success' });
         resetForm();
         dispatch(closeModal());
-      } catch (error) {
+      } catch (_error) {
         toast(t('toast.networkError'), { type: 'error' });
       }
     },
@@ -103,7 +103,7 @@ const RemovingModalWindow = () => {
       }
       dispatch(closeModal());
       toast(t('toast.channelRemoved'), { type: 'success' });
-    } catch (error) {
+    } catch (_error) {
       toast(t('toast.networkError'), { type: 'error' });
     }
   };
@@ -162,7 +162,7 @@ const RenamingModalWindow = () => {
         toast(t('toast.channelRenamed'), { type: 'success' });
         resetForm();
         dispatch(closeModal());
-      } catch (error) {
+      } catch (_error) {
         toast(t('toast.networkError'), { type: 'error' });
       }
     },
