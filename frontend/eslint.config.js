@@ -7,6 +7,14 @@ import { defineConfig } from 'eslint/config'
 
 export default defineConfig([
   {
+    ignores: [
+      'node_modules/',
+      'dist/',
+      'build/',
+      'coverage/',
+    ],
+  },
+  {
     files: ['**/*.{js,mjs,cjs,jsx}'],
     plugins: { js },
     extends: ['js/recommended'],
@@ -23,13 +31,6 @@ export default defineConfig([
         },
       },
     },
-    rules: {
-      'no-unused-vars': ['error', {
-        argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_',
-        caughtErrorsIgnorePattern: '^_',
-      }],
-    },
   },
   pluginReact.configs.flat.recommended,
   {
@@ -44,7 +45,7 @@ export default defineConfig([
     },
     settings: {
       react: {
-        version: 'detect',
+        version: '18.2.0',
       },
     },
     rules: {
@@ -58,12 +59,32 @@ export default defineConfig([
       'import/prefer-default-export': 0,
       'no-underscore-dangle': [2, { allow: ['__filename', '__dirname'] }],
 
+      'no-unused-vars': ['error', {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_',
+      }],
+
       '@stylistic/quotes': ['error', 'single'],
       '@stylistic/semi': ['error', 'never'],
+      '@stylistic/indent': ['error', 2, {
+        SwitchCase: 1,
+        VariableDeclarator: 1,
+        outerIIFEBody: 1,
+        MemberExpression: 1,
+        FunctionDeclaration: { parameters: 1, body: 1 },
+        FunctionExpression: { parameters: 1, body: 1 },
+        CallExpression: { arguments: 1 },
+        ArrayExpression: 1,
+        ObjectExpression: 1,
+        ImportDeclaration: 1,
+        flatTernaryExpressions: false,
+        ignoreComments: false,
+      }],
       '@stylistic/no-trailing-spaces': 'error',
       '@stylistic/comma-dangle': ['error', 'always-multiline'],
       '@stylistic/quote-props': ['error', 'as-needed'],
-      '@stylistic/arrow-parens': ['error', 'as-needed'],
+      '@stylistic/arrow-parens': ['error', 'always'],
       '@stylistic/multiline-ternary': ['error', 'always-multiline'],
       '@stylistic/brace-style': ['error', 'stroustrup'],
       '@stylistic/eol-last': ['error', 'always'],

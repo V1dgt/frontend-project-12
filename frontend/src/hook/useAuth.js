@@ -15,7 +15,7 @@ const useAuth = () => {
     localStorage.setItem('user', JSON.stringify({ token, username }))
     dispatch(loginSlice({ token, username }))
   }
-  const { username, token } = useSelector(state => state.auth)
+  const { username, token } = useSelector((state) => state.auth)
   return {
     logIn, logOut, username, token,
   }

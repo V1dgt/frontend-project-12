@@ -13,8 +13,8 @@ import useAuth from '../hook/useAuth.js'
 
 const ChannelsList = () => {
   const dispatch = useDispatch()
-  const { currentChannelId } = useSelector(state => state.ui)
-  const truncateClass = channel => cn({ 'text-truncate': channel.removable })
+  const { currentChannelId } = useSelector((state) => state.ui)
+  const truncateClass = (channel) => cn({ 'text-truncate': channel.removable })
   const { data: channels = [], error: channelsError } = useGetChannelsQuery()
   const navigate = useNavigate()
   const { signOut } = useAuth()
@@ -37,7 +37,7 @@ const ChannelsList = () => {
 
   return (
     <Nav className="flex-column nav-pills nav-fill px-2 mb3 overflow-auto h-100 d-block">
-      {channels.map(channel => {
+      {channels.map((channel) => {
         const btnElem = (
           <Button
             variant={channel.id === currentChannelId ? 'secondary' : 'light'}
@@ -53,35 +53,35 @@ const ChannelsList = () => {
         return (
           <Nav.Item key={channel.id} className="w-100">
             {!channel.removable
-? btnElem
-: (
-              <ButtonGroup className="d-flex dropdown">
-                {btnElem}
-                <DropdownButton
-                  variant={channel.id === currentChannelId ? 'secondary' : 'light'}
-                  as={ButtonGroup}
-                  title={<span className="visually-hidden">{t('mainPage.manage')}</span>}
-                  id="dropdownButton"
-                >
-                  <Dropdown.Item
-                    onClick={() => dispatch(openModal({ type: 'removeChannel', channelId: channel.id }))}
-                    className="btn btn-secondary"
+              ? btnElem
+              : (
+                <ButtonGroup className="d-flex dropdown">
+                  {btnElem}
+                  <DropdownButton
+                    variant={channel.id === currentChannelId ? 'secondary' : 'light'}
+                    as={ButtonGroup}
+                    title={<span className="visually-hidden">{t('mainPage.manage')}</span>}
+                    id="dropdownButton"
                   >
-                    {t('mainPage.remove')}
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    onClick={() => dispatch(openModal({
-                      type: 'renameChannel',
-                      channelId: channel.id,
-                      channelName: channel.name,
-                    }))}
-                    className="btn btn-secondary"
-                  >
-                    {t('mainPage.rename')}
-                  </Dropdown.Item>
-                </DropdownButton>
-              </ButtonGroup>
-            )}
+                    <Dropdown.Item
+                      onClick={() => dispatch(openModal({ type: 'removeChannel', channelId: channel.id }))}
+                      className="btn btn-secondary"
+                    >
+                      {t('mainPage.remove')}
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => dispatch(openModal({
+                        type: 'renameChannel',
+                        channelId: channel.id,
+                        channelName: channel.name,
+                      }))}
+                      className="btn btn-secondary"
+                    >
+                      {t('mainPage.rename')}
+                    </Dropdown.Item>
+                  </DropdownButton>
+                </ButtonGroup>
+              )}
           </Nav.Item>
         )
       })}

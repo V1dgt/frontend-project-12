@@ -21,7 +21,7 @@ const AddingModalWindow = () => {
 
   const inputSchema = yup.object().shape({
     inputValue: yup.string().trim().min(3, t('errors.min3max20')).max(20, t('errors.min3max20'))
-      .notOneOf(channels.map(channel => channel.name), t('errors.notUnique'))
+      .notOneOf(channels.map((channel) => channel.name), t('errors.notUnique'))
       .required(t('errors.required')),
   })
 
@@ -40,7 +40,7 @@ const AddingModalWindow = () => {
         resetForm()
         dispatch(closeModal())
       }
- catch (_error) {
+      catch (_error) {
         toast(t('toast.networkError'), { type: 'error' })
       }
     },
@@ -91,11 +91,11 @@ const RemovingModalWindow = () => {
     currentChannelId,
     defaultChannelId,
     modal: { isOpen, extra },
-  } = useSelector(state => state.ui)
+  } = useSelector((state) => state.ui)
   const dispatch = useDispatch()
   const [removeChannel] = useRemoveChannelMutation()
 
-  const deleteChannel = async e => {
+  const deleteChannel = async (e) => {
     e.preventDefault()
     try {
       const response = await removeChannel(extra.channelId)
@@ -105,7 +105,7 @@ const RemovingModalWindow = () => {
       dispatch(closeModal())
       toast(t('toast.channelRemoved'), { type: 'success' })
     }
- catch (_error) {
+    catch (_error) {
       toast(t('toast.networkError'), { type: 'error' })
     }
   }
@@ -137,14 +137,14 @@ const RemovingModalWindow = () => {
 const RenamingModalWindow = () => {
   const { t } = useTranslation()
   const { data: channels = [] } = useGetChannelsQuery()
-  const { channelName, channelId } = useSelector(state => state.ui.modal.extra)
+  const { channelName, channelId } = useSelector((state) => state.ui.modal.extra)
   const dispatch = useDispatch()
   const [renameChannel] = useRenameChannelMutation()
   const inputRef = useRef()
 
   const inputSchema = yup.object().shape({
     inputValue: yup.string().trim().min(3, t('errors.min3max20')).max(20, t('errors.min3max20'))
-      .notOneOf(channels.map(channel => channel.name), t('errors.notUnique'))
+      .notOneOf(channels.map((channel) => channel.name), t('errors.notUnique'))
       .required(t('errors.required')),
   })
 
@@ -165,7 +165,7 @@ const RenamingModalWindow = () => {
         resetForm()
         dispatch(closeModal())
       }
- catch (_error) {
+      catch (_error) {
         toast(t('toast.networkError'), { type: 'error' })
       }
     },
@@ -213,7 +213,7 @@ const RenamingModalWindow = () => {
 }
 
 const ModalWindow = () => {
-  const { type, isOpen } = useSelector(state => state.ui.modal)
+  const { type, isOpen } = useSelector((state) => state.ui.modal)
   if (!isOpen) return null
   const mapping = {
     addChannel: <AddingModalWindow />,
