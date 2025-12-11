@@ -2,16 +2,16 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "chat-application",
-  "homepage": "https://github.com/Konstantin-Gromakovskiy/frontend-project-12#readme",
+  "homepage": "https://github.com/V1dgt/frontend-project-12#readme",
   "bugs": {
-    "url": "https://github.com/Konstantin-Gromakovskiy/frontend-project-12/issues"
+    "url": "https://github.com/V1dgt/frontend-project-12/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Konstantin-Gromakovskiy/frontend-project-12.git"
+    "url": "git+https://github.com/V1dgt/frontend-project-12.git"
   },
   "license": "ISC",
-  "author": "Konstantin Gromakovskiy",
+  "author": "vldgt",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
