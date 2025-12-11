@@ -1,11 +1,10 @@
-
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 const currentChannelIdSlice = createSlice({
-  name: "ui",
+  name: 'ui',
   initialState: {
-    currentChannelId: "1",
-    defaultChannelId: "1",
+    currentChannelId: '1',
+    defaultChannelId: '1',
     modal: {
       isOpen: false,
       type: null,
@@ -17,22 +16,22 @@ const currentChannelIdSlice = createSlice({
   },
   reducers: {
     setCurrentChannelId(state, { payload: { id } }) {
-      state.currentChannelId = id;
+      state.currentChannelId = id
     },
     openModal(state, { payload: { type, channelId, channelName } }) {
-      if (channelName) state.modal.extra.channelName = channelName;
-      if (channelId) state.modal.extra.channelId = channelId;
-      state.modal.type = type;
-      state.modal.isOpen = true;
+      if (channelName) state.modal.extra.channelName = channelName
+      if (channelId) state.modal.extra.channelId = channelId
+      state.modal.type = type
+      state.modal.isOpen = true
     },
     closeModal(state) {
-      state.modal.isOpen = false;
-      state.modal.type = null;
-      state.modal.extra.channelId = null;
-      state.modal.extra.channelName = null;
+      state.modal.isOpen = false
+      state.modal.type = null
+      state.modal.extra.channelId = null
+      state.modal.extra.channelName = null
     },
   },
-});
+})
 
-export const { setCurrentChannelId, openModal, closeModal } = currentChannelIdSlice.actions;
-export default currentChannelIdSlice.reducer;
+export const { setCurrentChannelId, openModal, closeModal } = currentChannelIdSlice.actions
+export default currentChannelIdSlice.reducer

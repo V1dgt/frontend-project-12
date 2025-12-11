@@ -1,14 +1,14 @@
-import { useDispatch } from "react-redux";
-import { Button } from "react-bootstrap";
-import { useTranslation } from "react-i18next";
-import ChatContainer from "./ChatContainer.jsx";
-import ModalWindow from "./ModalWindow.jsx";
-import ChannelsList from "./ChannelsList.jsx";
-import { openModal } from "../redux/store/uiSlice.js";
+import { useDispatch } from 'react-redux'
+import { Button } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
+import ChatContainer from './ChatContainer.jsx'
+import ModalWindow from './ModalWindow.jsx'
+import ChannelsList from './ChannelsList.jsx'
+import { openModal } from '../redux/store/uiSlice.js'
 
 const MainPage = () => {
-  const dispatch = useDispatch();
-  const { t } = useTranslation();
+  const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   return (
     <>
@@ -16,9 +16,9 @@ const MainPage = () => {
         <div className="row h-100 bg-white flex-md-row">
           <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
             <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-              <b>{t("mainPage.channels")}</b>
+              <b>{t('mainPage.channels')}</b>
               <Button
-                onClick={() => dispatch(openModal({ type: "addChannel" }))}
+                onClick={() => dispatch(openModal({ type: 'addChannel' }))}
                 variant="outline-primary"
                 type="button"
                 className="btn btn-group-vertical p-0"
@@ -42,7 +42,7 @@ const MainPage = () => {
       </div>
       <ModalWindow />
     </>
-  );
-};
+  )
+}
 
-export default MainPage;
+export default MainPage

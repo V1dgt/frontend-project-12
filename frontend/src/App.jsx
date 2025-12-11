@@ -1,18 +1,18 @@
-import { ToastContainer } from "react-toastify";
+import { ToastContainer } from 'react-toastify'
 import {
   Route, Routes, BrowserRouter, Outlet,
-} from "react-router";
-import { Provider } from "react-redux";
-import { Provider as RollbarProvider, ErrorBoundary } from "@rollbar/react";
-import RequireAuth from "./components/RequireAuth.jsx";
-import Layout from "./components/Layout.jsx";
-import NotFoundPage from "./components/NotFoundPage.jsx";
-import LoginPage from "./components/LoginPage.jsx";
-import MainPage from "./components/MainPage.jsx";
-import SignupPage from "./components/SignupPage.jsx";
-import "./locale/i18next.js";
-import rollbarConfig from "../rollbar.config.js";
-import routes from "./routes.js";
+} from 'react-router'
+import { Provider } from 'react-redux'
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react'
+import RequireAuth from './components/RequireAuth.jsx'
+import Layout from './components/Layout.jsx'
+import NotFoundPage from './components/NotFoundPage.jsx'
+import LoginPage from './components/LoginPage.jsx'
+import MainPage from './components/MainPage.jsx'
+import SignupPage from './components/SignupPage.jsx'
+import './locale/i18next.js'
+import rollbarConfig from '../rollbar.config.js'
+import routes from './routes.js'
 
 const App = ({ store }) => (
   <RollbarProvider config={rollbarConfig}>
@@ -39,5 +39,5 @@ const App = ({ store }) => (
       </Provider>
     </ErrorBoundary>
   </RollbarProvider>
-);
-export default App;
+)
+export default App
