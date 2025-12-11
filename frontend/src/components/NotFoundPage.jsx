@@ -1,4 +1,3 @@
-import React from 'react'
 import { useTranslation } from 'react-i18next'
 import notFound from '../assets/404.svg'
 import routes from '../routes.js'

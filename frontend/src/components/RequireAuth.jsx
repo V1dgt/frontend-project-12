@@ -4,7 +4,7 @@ import routes from '../routes.js'
 
 const RequireAuth = ({ children }) => {
   const location = useLocation()
-  const { token } = useSelector((state) => state.auth)
+  const { token } = useSelector(state => state.auth)
 
   return token ? children : <Navigate to={routes.loginPagePath()} state={{ from: location }} />
 }

@@ -36,7 +36,7 @@ const SignupPage = () => {
     },
     validateOnBlur: false,
     validationSchema,
-    onSubmit: async (values) => {
+    onSubmit: async values => {
       try {
         const response = await axios.post(
           routes.createUserUrl(),

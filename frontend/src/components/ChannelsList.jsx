@@ -13,8 +13,8 @@ import useAuth from '../hook/useAuth.js'
 
 const ChannelsList = () => {
   const dispatch = useDispatch()
-  const { currentChannelId } = useSelector((state) => state.ui)
-  const truncateClass = (channel) => cn({ 'text-truncate': channel.removable })
+  const { currentChannelId } = useSelector(state => state.ui)
+  const truncateClass = channel => cn({ 'text-truncate': channel.removable })
   const { data: channels = [], error: channelsError } = useGetChannelsQuery()
   const navigate = useNavigate()
   const { signOut } = useAuth()
@@ -37,7 +37,7 @@ const ChannelsList = () => {
 
   return (
     <Nav className="flex-column nav-pills nav-fill px-2 mb3 overflow-auto h-100 d-block">
-      {channels.map((channel) => {
+      {channels.map(channel => {
         const btnElem = (
           <Button
             variant={channel.id === currentChannelId ? 'secondary' : 'light'}
@@ -55,7 +55,7 @@ const ChannelsList = () => {
             {!channel.removable
               ? btnElem
               : (
-                <ButtonGroup className="d-flex dropdown">
+                  <ButtonGroup className="d-flex dropdown">
                   {btnElem}
                   <DropdownButton
                     variant={channel.id === currentChannelId ? 'secondary' : 'light'}

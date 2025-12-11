@@ -16,7 +16,7 @@ const MessageForm = () => {
   const {
     currentChannelId,
     modal: { isOpen },
-  } = useSelector((state) => state.ui)
+  } = useSelector(state => state.ui)
 
   useEffect(() => {
     inputRef.current.focus()
