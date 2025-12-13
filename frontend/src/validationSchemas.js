@@ -6,7 +6,7 @@ export const getChannelSchema = (channels, t) => yup.object().shape({
     .required(t('errors.required')),
 })
 
-export const getSignupSchema = (t) => yup.object({
+export const getSignupSchema = t => yup.object({
   username: yup.string().min(3, t('errors.min3max20')).max(20, t('errors.min3max20')).required(t('errors.required')),
   password: yup.string().min(6, t('errors.min6')).required(t('errors.required')),
   confirmPassword: yup.string().oneOf([yup.ref('password'), null], t('errors.oneOf')).required(t('errors.required')),
