@@ -20,32 +20,34 @@ const LoginPage = () => {
   const { t } = useTranslation()
   const { logIn } = useAuth()
 
+  const handleSubmit = async (values) => {
+    setAuthFailed(false)
+    try {
+      const response = await axios.post(routes.loginUrl(), values)
+      const responseToken = response.data.token
+      const { username } = response.data
+      logIn(username, responseToken)
+      navigate(fromPage, { replace: true })
+    }
+    catch (error) {
+      if (!error.isAxiosError) {
+        toast(t('toast.unknownError'), { type: 'error' })
+        return
+      }
+      if (error.status === 401) {
+        setAuthFailed(true)
+        return
+      }
+      toast(t('toast.networkError'), { type: 'error' })
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
       username: '',
       password: '',
     },
-    onSubmit: async (values) => {
-      setAuthFailed(false)
-      try {
-        const response = await axios.post(routes.loginUrl(), values)
-        const responseToken = response.data.token
-        const { username } = response.data
-        logIn(username, responseToken)
-        navigate(fromPage, { replace: true })
-      }
-      catch (error) {
-        if (!error.isAxiosError) {
-          toast(t('toast.unknownError'), { type: 'error' })
-          return
-        }
-        if (error.status === 401) {
-          setAuthFailed(true)
-          return
-        }
-        toast(t('toast.networkError'), { type: 'error' })
-      }
-    },
+    onSubmit: handleSubmit,
   })
 
   return (
@@ -63,7 +65,6 @@ const LoginPage = () => {
                   <Form.Control
                     required
                     className={`form-control ${cn({ 'is-invalid': authFailed })}`}
-                    autoComplete="username"
                     type="text"
                     name="username"
                     placeholder={t('loginPage.username')}
@@ -78,7 +79,6 @@ const LoginPage = () => {
                   <Form.Control
                     required
                     className={`form-control ${cn({ 'is-invalid': authFailed })}`}
-                    autoComplete="current-password"
                     type="password"
                     name="password"
                     placeholder={t('loginPage.password')}

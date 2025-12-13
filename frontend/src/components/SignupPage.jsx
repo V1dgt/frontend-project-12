@@ -4,7 +4,6 @@ import {
 import { useEffect, useRef } from 'react'
 import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
-import * as yup from 'yup'
 import cn from 'classnames'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
@@ -12,6 +11,7 @@ import axios from 'axios'
 import signupAvatar from '../assets/signup-avatar.jpg'
 import routes from '../routes.js'
 import useAuth from '../hook/useAuth.js'
+import { getSignupSchema } from '../validationSchemas.js'
 
 const SignupPage = () => {
   const inputNameRef = useRef()
@@ -22,11 +22,28 @@ const SignupPage = () => {
   }, [])
   const { t } = useTranslation()
 
-  const validationSchema = yup.object({
-    username: yup.string().min(3, t('errors.min3max20')).max(20, t('errors.min3max20')).required(t('errors.required')),
-    password: yup.string().min(6, t('errors.min6')).required(t('errors.required')),
-    confirmPassword: yup.string().oneOf([yup.ref('password'), null], t('errors.oneOf')).required(t('errors.required')),
-  })
+  const handleSubmit = async (values) => {
+    try {
+      const response = await axios.post(
+        routes.createUserUrl(),
+        { username: values.username, password: values.password },
+      )
+      const { username, token } = response.data
+      logIn(username, token)
+      navigate(routes.mainPagePath(), { replace: true })
+    }
+    catch (error) {
+      if (!error.isAxiosError) {
+        toast(t('toast.unknownError'), { type: 'error' })
+        return
+      }
+      if (error.status === 409) {
+        formik.setErrors({ username: t('errors.userExists') })
+        return
+      }
+      toast(t('toast.networkError', { type: 'error' }))
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -35,29 +52,8 @@ const SignupPage = () => {
       confirmPassword: '',
     },
     validateOnBlur: false,
-    validationSchema,
-    onSubmit: async (values) => {
-      try {
-        const response = await axios.post(
-          routes.createUserUrl(),
-          { username: values.username, password: values.password },
-        )
-        const { username, token } = response.data
-        logIn(username, token)
-        navigate(routes.mainPagePath(), { replace: true })
-      }
-      catch (error) {
-        if (!error.isAxiosError) {
-          toast(t('toast.unknownError'), { type: 'error' })
-          return
-        }
-        if (error.status === 409) {
-          formik.setErrors({ username: t('errors.userExists') })
-          return
-        }
-        toast(t('toast.networkError', { type: 'error' }))
-      }
-    },
+    validationSchema: getSignupSchema(t),
+    onSubmit: handleSubmit,
   })
 
   return (
@@ -79,7 +75,6 @@ const SignupPage = () => {
                       type="text"
                       placeholder={t('errors.min3max20')}
                       name="username"
-                      autoComplete="username"
                       value={formik.values.username}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -94,7 +89,6 @@ const SignupPage = () => {
                       required
                       type="password"
                       name="password"
-                      autoComplete="new-password"
                       placeholder={t('signupPage.password')}
                       value={formik.values.password}
                       onChange={formik.handleChange}
@@ -118,7 +112,6 @@ const SignupPage = () => {
                       type="password"
                       name="confirmPassword"
                       placeholder={t('signupPage.confirmPassword')}
-                      autoComplete="new-password"
                       value={formik.values.confirmPassword}
                       className={cn({ 'is-invalid': formik.errors.confirmPassword && formik.touched.confirmPassword })}
                       onChange={formik.handleChange}

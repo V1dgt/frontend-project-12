@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import { useEffect, useRef } from 'react'
 import { useGetMessagesQuery } from '../redux/store/messagesApi.js'
 import MessageForm from './MessageForm.jsx'
 import { useGetChannelsQuery } from '../redux/store/channelsApi.js'
@@ -11,6 +12,11 @@ const ChatContainer = () => {
   const channels = useGetChannelsQuery().data || []
   const currentChannelName = channels.find(channel => channel.id === currentChannelId)?.name
   const currentMessages = messages.filter(message => message.channelId === currentChannelId)
+  const messagesEndRef = useRef(null)
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [currentMessages])
 
   return (
     <div className="col p-0 h-100">
@@ -28,6 +34,7 @@ const ChatContainer = () => {
               {`: ${message.body}`}
             </div>
           ))}
+          <div ref={messagesEndRef} />
         </div>
         <MessageForm />
       </div>

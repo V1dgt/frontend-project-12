@@ -22,28 +22,30 @@ const MessageForm = () => {
     inputRef.current.focus()
   }, [isOpen])
 
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      const message = filter.clean(values.body.trim())
+      await addMassage({ body: message, channelId: currentChannelId, username }).unwrap()
+      resetForm()
+    }
+    catch (error) {
+      switch (error.status) {
+        case 401:
+          logOut()
+          break
+        case 500:
+          toast.error(t('toast.serverError'))
+          break
+        default:
+          toast.error(t('toast.unknownError'))
+          console.log(error)
+      }
+    }
+  }
+
   const formik = useFormik({
     initialValues: { body: '' },
-    onSubmit: async (values, { resetForm }) => {
-      try {
-        const message = filter.clean(values.body.trim())
-        await addMassage({ body: message, channelId: currentChannelId, username }).unwrap()
-        resetForm()
-      }
-      catch (error) {
-        switch (error.status) {
-          case 401:
-            logOut()
-            break
-          case 500:
-            toast.error(t('toast.serverError'))
-            break
-          default:
-            toast.error(t('toast.unknownError'))
-            console.log(error)
-        }
-      }
-    },
+    onSubmit: handleSubmit,
   })
 
   return (

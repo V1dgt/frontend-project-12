@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { Button, Form, Modal } from 'react-bootstrap'
 import { useFormik } from 'formik'
-import * as yup from 'yup'
 import { toast } from 'react-toastify'
 import cn from 'classnames'
 import { useRef, useEffect } from 'react'
@@ -11,6 +10,7 @@ import { closeModal, setCurrentChannelId } from '../redux/store/uiSlice.js'
 import {
   useAddChannelMutation, useRemoveChannelMutation, useRenameChannelMutation, useGetChannelsQuery,
 } from '../redux/store/channelsApi.js'
+import { getChannelSchema } from '../validationSchemas.js'
 
 const AddingModalWindow = () => {
   const { t } = useTranslation()
@@ -19,32 +19,29 @@ const AddingModalWindow = () => {
   const [addChannel] = useAddChannelMutation()
   const inputRef = useRef()
 
-  const inputSchema = yup.object().shape({
-    inputValue: yup.string().trim().min(3, t('errors.min3max20')).max(20, t('errors.min3max20'))
-      .notOneOf(channels.map(channel => channel.name), t('errors.notUnique'))
-      .required(t('errors.required')),
-  })
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      const { id } = await addChannel(filter.clean(values.inputValue)).unwrap()
+      dispatch(setCurrentChannelId({ id }))
+      toast(t('toast.channelAdded'), { type: 'success' })
+      resetForm()
+      dispatch(closeModal())
+    }
+    catch {
+      toast(t('toast.networkError'), { type: 'error' })
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
       inputValue: '',
     },
-    validationSchema: inputSchema,
+    validationSchema: getChannelSchema(channels, t),
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values, { resetForm }) => {
-      try {
-        const { id } = await addChannel(filter.clean(values.inputValue)).unwrap()
-        dispatch(setCurrentChannelId({ id }))
-        toast(t('toast.channelAdded'), { type: 'success' })
-        resetForm()
-        dispatch(closeModal())
-      }
-      catch {
-        toast(t('toast.networkError'), { type: 'error' })
-      }
-    },
+    onSubmit: handleSubmit,
   })
+
   useEffect(() => {
     inputRef.current.focus()
   }, [])
@@ -142,33 +139,29 @@ const RenamingModalWindow = () => {
   const [renameChannel] = useRenameChannelMutation()
   const inputRef = useRef()
 
-  const inputSchema = yup.object().shape({
-    inputValue: yup.string().trim().min(3, t('errors.min3max20')).max(20, t('errors.min3max20'))
-      .notOneOf(channels.map(channel => channel.name), t('errors.notUnique'))
-      .required(t('errors.required')),
-  })
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      await renameChannel({
+        id: channelId,
+        name: filter.clean(values.inputValue.trim()),
+      }).unwrap()
+      toast(t('toast.channelRenamed'), { type: 'success' })
+      resetForm()
+      dispatch(closeModal())
+    }
+    catch {
+      toast(t('toast.networkError'), { type: 'error' })
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
       inputValue: channelName,
     },
-    validationSchema: inputSchema,
+    validationSchema: getChannelSchema(channels, t),
     validateOnChange: false,
     validateOnBlur: false,
-    onSubmit: async (values, { resetForm }) => {
-      try {
-        await renameChannel({
-          id: channelId,
-          name: filter.clean(values.inputValue.trim()),
-        }).unwrap()
-        toast(t('toast.channelRenamed'), { type: 'success' })
-        resetForm()
-        dispatch(closeModal())
-      }
-      catch {
-        toast(t('toast.networkError'), { type: 'error' })
-      }
-    },
+    onSubmit: handleSubmit,
   })
 
   useEffect(() => {
