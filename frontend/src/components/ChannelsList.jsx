@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
-import { openModal, setCurrentChannelId } from '../redux/store/uiSlice.js'
-import { useGetChannelsQuery } from '../redux/store/channelsApi.js'
+import { openModal, setCurrentChannelId } from '../redux/slice/uiSlice.js'
+import { useGetChannelsQuery } from '../redux/slice/channelsApi.js'
 import useAuth from '../hook/useAuth.js'
 
 const ChannelsList = () => {

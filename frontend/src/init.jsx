@@ -3,9 +3,9 @@ import io from 'socket.io-client'
 import startI18n from './locale/i18next.js'
 import routes from './routes.js'
 import createStore from './redux/index.js'
-import { channelsApi } from './redux/store/channelsApi.js'
-import { messagesApi } from './redux/store/messagesApi.js'
-import { login } from './redux/store/authSlice.js'
+import { channelsApi } from './redux/slice/channelsApi.js'
+import { messagesApi } from './redux/slice/messagesApi.js'
+import { login } from './redux/slice/authSlice.js'
 import App from './App.jsx'
 
 const init = async () => {

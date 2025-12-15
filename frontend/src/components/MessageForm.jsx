@@ -5,7 +5,7 @@ import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import { useEffect, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { useAddMessageMutation } from '../redux/store/messagesApi.js'
+import { useAddMessageMutation } from '../redux/slice/messagesApi.js'
 import useAuth from '../hook/useAuth.js'
 
 const MessageForm = () => {

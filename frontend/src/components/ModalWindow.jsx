@@ -6,10 +6,10 @@ import { toast } from 'react-toastify'
 import cn from 'classnames'
 import { useRef, useEffect } from 'react'
 import filter from 'leo-profanity'
-import { closeModal, setCurrentChannelId } from '../redux/store/uiSlice.js'
+import { closeModal, setCurrentChannelId } from '../redux/slice/uiSlice.js'
 import {
   useAddChannelMutation, useRemoveChannelMutation, useRenameChannelMutation, useGetChannelsQuery,
-} from '../redux/store/channelsApi.js'
+} from '../redux/slice/channelsApi.js'
 import { getChannelSchema } from '../validationSchemas.js'
 
 const AddingModalWindow = () => {

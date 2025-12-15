@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { useEffect, useRef } from 'react'
-import { useGetMessagesQuery } from '../redux/store/messagesApi.js'
+import { useGetMessagesQuery } from '../redux/slice/messagesApi.js'
 import MessageForm from './MessageForm.jsx'
-import { useGetChannelsQuery } from '../redux/store/channelsApi.js'
+import { useGetChannelsQuery } from '../redux/slice/channelsApi.js'
 
 const ChatContainer = () => {
   const { currentChannelId } = useSelector(state => state.ui)

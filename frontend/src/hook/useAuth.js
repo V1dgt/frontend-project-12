@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { logout as logoutSlice, login as loginSlice } from '../redux/store/authSlice.js'
+import { logout as logoutSlice, login as loginSlice } from '../redux/slice/authSlice.js'
 import routes from '../routes.js'
 
 const useAuth = () => {

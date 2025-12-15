@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import ChatContainer from './ChatContainer.jsx'
 import ModalWindow from './ModalWindow.jsx'
 import ChannelsList from './ChannelsList.jsx'
-import { openModal } from '../redux/store/uiSlice.js'
+import { openModal } from '../redux/slice/uiSlice.js'
 
 const MainPage = () => {
   const dispatch = useDispatch()
